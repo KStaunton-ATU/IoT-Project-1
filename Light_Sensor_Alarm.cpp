@@ -48,7 +48,7 @@ void loop() {
     //build URL string and then make a HTTP request to that PB service
     String requestURL = baseURL + deviceID + spreadsheetValues + lightValue;
     client.get(requestURL);
-
+    client.get(api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8)
   } else {
     digitalWrite(ledPin, LOW);
     digitalWrite(buzzerPin, LOW);
