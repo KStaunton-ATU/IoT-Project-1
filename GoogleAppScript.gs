@@ -9,7 +9,7 @@ function doGet(e) {
     result = 'No Parameters';
   }
   else {
-    var id = '1RZdc71uxOMqzwv2yn8RFD9m0R4zn96iuoPbleJFtoJY';//specific to the spreadsheet you are working on. this is id is found     //directly after "docs.google.com/spreadsheetURL/d" in the URL. 
+    var id = '1x5b5rFN28Pq1N80P3Fvb0KA2p7eUCuH9fVPvxoWHF8I';//specific to the spreadsheet you are working on. this is id is found     //directly after "docs.google.com/spreadsheetURL/d" in the URL. 
    
     var sheet = SpreadsheetApp.openById(id).getActiveSheet();
     var newRow = sheet.getLastRow() + 1;
@@ -22,7 +22,7 @@ function doGet(e) {
       var value = stripQuotes(e.parameter[param]);
       //Logger.log(param + ':' + e.parameter[param]);
       switch (param) {
-        case 'devid': //Parameter
+        case 'devId': //Parameter
           rowData[1] = value; //Value in column B
           break;
         case 'LightValue':
