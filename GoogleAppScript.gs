@@ -22,7 +22,7 @@ function doGet(e) {
       var value = stripQuotes(e.parameter[param]);
       //Logger.log(param + ':' + e.parameter[param]);
       switch (param) {
-        case 'devId': //Parameter
+        case 'devID': //Parameter
           rowData[1] = value; //Value in column B
           break;
         case 'LightValue':
