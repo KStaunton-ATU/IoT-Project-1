@@ -8,6 +8,7 @@ const int baseline = 300;
 #include <HttpClient.h>
 
 //we want to eventually make a HTTP request to Pushing Box
+HttpClient client; //this object will let us make HTTP requests to the pushingbox service
 String baseURL = "api.pushingbox.com/pushingbox?devID=";
 String deviceID = "v0CC38418000E8B6";
 String spreadsheetValue ="&LightValue=";
@@ -27,7 +28,6 @@ void setup()
 
 void loop() 
 {
-  HttpClient client; //this object will let us make HTTP requests to the pushingbox service
   int lightValue = analogRead(lightPin);
 
   if (lightValue < baseline) 
