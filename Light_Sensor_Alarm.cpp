@@ -52,5 +52,5 @@ void loop()
     digitalWrite(ledPin, LOW);
     digitalWrite(buzzerPin, LOW);
   }
-  delay(1000);
+  delay(3000);
 }
