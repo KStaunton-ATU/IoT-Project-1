@@ -34,7 +34,8 @@ void loop()
   {
     digitalWrite(buzzerPin, HIGH);
     digitalWrite(ledPin, HIGH);
-    Serial.print("Light Intensity: "+lightValue);
+    Serial.print("Light Intensity: ");
+    Serial.println(lightValue);
 
     //wait 3 seconds and turn off the alarm
     delay(3000);
@@ -44,7 +45,7 @@ void loop()
     //build URL string and then make a HTTP request to that PB service
     String requestURL = baseURL + deviceID + spreadsheetValue + lightValue;
     client.get(requestURL);
-    client.get(api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8)
+    client.get("api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8");
   } 
   else 
   {
