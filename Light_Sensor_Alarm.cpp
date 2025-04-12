@@ -5,6 +5,7 @@ const int ledPin = 4; //LED Pin
 const int baseline = 300;
 
 #include <Bridge.h>
+#include <Process.h>
 #include <HttpClient.h>
 
 //we want to eventually make a HTTP request to Pushing Box
@@ -46,6 +47,10 @@ void loop()
     String requestURL = baseURL + deviceID + spreadsheetValue + lightValue;
     client.get(requestURL);
     client.get("api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8");
+
+    //attempting to use the PushOver API
+    sendPushoverNotification("Dummy Test Message");
+    delay(30000); // delay 30 seconds to avoid spamming messages and wasting limited calls
   } 
   else 
   {
@@ -53,4 +58,28 @@ void loop()
     digitalWrite(buzzerPin, LOW);
   }
   delay(3000);
+}
+
+void sendPushoverNotification(String message) 
+{
+  Process process;
+  String userKey = "ugh795ezmczcigmwnsdbbnevt3m9gf";
+  String apiToken = "abs2yokxv6hvmx9s1e9rr8dzkh2tcb";
+  process.begin("curl");
+  process.addParameter("-s");
+  process.addParameter("--form-string");
+  process.addParameter("token=" + apiToken);
+  process.addParameter("--form-string");
+  process.addParameter("user=" + userKey);
+  process.addParameter("--form-string");
+  process.addParameter("message=" + message);
+  process.addParameter("https://api.pushover.net/1/messages.json");
+  process.run();
+
+  //print any response from PushOver, if any
+  while (process.available()) {
+    char c = process.read();
+    Serial.print(c);
+  }
+  Serial.println("API Call Completed");
 }
