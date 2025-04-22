@@ -12,7 +12,8 @@ const int baseline = 300;
 
 String userKey = "ugh795ezmczcigmwnsdbbnevt3m9gf";
 String apiToken = "abs2yokxv6hvmx9s1e9rr8dzkh2tcb";
-String webhookURL = "https://hook0.com/webhooks/alarm_off";
+String webhookURL = "https://hook0.com/webhooks/alarm_off?label_key=0";
+
 String hook0APIKey = "90ad5237-eef3-4f55-9733-26b633e474e7"; 
 
 YunServer server;
