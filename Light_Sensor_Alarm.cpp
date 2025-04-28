@@ -60,7 +60,9 @@ void loop()
     Serial.println("Alarm triggered");
     Serial.print("Light Intensity: ");
     Serial.println(lightValue);
-
+    lcd.setCursor(0,1);
+    lcd.print("Alarm Triggered");
+    
     //prepare the message for the Pushover notification
     String message = getMessage(lightValue);    
     //attempting to use the PushOver API
@@ -85,9 +87,13 @@ void loop()
         handleAlarmOffRequest(client);
         client.stop();
     }
+    Countdown();
   } 
   else 
   {
+    lcd.setCursor(0,1);
+    lcd.print("Armed");
+    
     Serial.println("No HTTP request received. Turning off peripherals.");
     digitalWrite(ledPin, LOW);
     digitalWrite(buzzerPin, LOW);
@@ -145,6 +151,26 @@ String getMessage(int lightValue)
 
   return message;
 }  
+
+void Countdown()
+{
+  lcd.setCursor(0,1);
+  lcd.print("911 in call in 5");
+  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("911 in call in 4");
+  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("911 in call in 3");
+  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("911 in call in 2");
+  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("911 in call in 1");
+  delay(1000);
+  lcd.print("Garda alerted");
+}
 
 void handleAlarmOffRequest(YunClient client) 
 {
