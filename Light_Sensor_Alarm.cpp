@@ -13,7 +13,6 @@ const int baseline = 300;
 String userKey = "ugh795ezmczcigmwnsdbbnevt3m9gf";
 String apiToken = "abs2yokxv6hvmx9s1e9rr8dzkh2tcb";
 String webhookURL = "https://hook0.com/webhooks/alarm_off?label_key=0";
-
 String hook0APIKey = "90ad5237-eef3-4f55-9733-26b633e474e7"; 
 
 YunServer server;
@@ -54,19 +53,21 @@ void loop()
     String message = getMessage(lightValue);    
     //attempting to use the PushOver API
     sendPushoverNotification(message);
-    delay(30000); // delay 30 seconds to avoid spamming messages and wasting limited calls
-
-    //wait 3 seconds and turn off the alarm
-    delay(3000);
-    digitalWrite(buzzerPin, LOW);
-    digitalWrite(ledPin, LOW);
 
     //build URL string and then make a HTTP request to that PB service
     String requestURL = baseURL + deviceID + spreadsheetValue + lightValue;
     client.get(requestURL);
     client.get("api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8");
 
-    YunClient client = server.accept();//listening for HTTP request
+    unsigned long startTime = millis();//gets milliseconds the Yun has been powered on
+    unsigned long timeout = 5000; // Set a timeout of 5 seconds (5000 ms)
+    YunClient client;
+
+    while (!client && (millis() - startTime < timeout)) 
+    {
+      client = server.accept(); //listening for HTTP request
+    }
+
     if (client) 
     {
         handleAlarmOffRequest(client);
@@ -75,17 +76,17 @@ void loop()
   } 
   else 
   {
+    Serial.println("No HTTP request received. Turning off peripherals.");
     digitalWrite(ledPin, LOW);
     digitalWrite(buzzerPin, LOW);
   }
-  delay(3000);
 }
 
 void sendPushoverNotification(String message) 
 {
   Process process;
   process.begin("curl");
-  process.addParameter("-s");
+  process.addParameter("--insecure");//Avoid SSL cert verification errors
   process.addParameter("--form-string");
   process.addParameter("token=" + apiToken);
   process.addParameter("--form-string");
