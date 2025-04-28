@@ -1,9 +1,17 @@
-//Written by Kevin Staunton
+//Written by Kevin Staunton & Kaelum Beglin Sweeney
 #include <Bridge.h>
 #include <Process.h>
 #include <HttpClient.h>
 #include <YunServer.h>
 #include <YunClient.h>
+#include <Wire.h>
+#include "rgb_lcd.h"
+
+rgb_lcd lcd;
+
+const int colorR = 255;
+const int colorG = 0;
+const int colorB = 0;
 
 const int lightPin = A0; // Analog pin A0
 const int buzzerPin = 3; // Buzzer pin
@@ -31,6 +39,10 @@ void setup()
   pinMode(ledPin, OUTPUT);
   Serial.begin(9600);
   server.listenOnPort(5555);  // Open a port to listen for http requests
+
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  lcd.setRGB(colorR, colorG, colorB);
 
   //Bridge needs time to get started. So wait 3 seconds
   Bridge.begin();
