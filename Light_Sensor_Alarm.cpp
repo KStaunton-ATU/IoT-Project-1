@@ -89,6 +89,7 @@ void loop()
     }
     else 
     {
+      lcd.clear();
       lcd.setCursor(0,1);
       lcd.print("Armed");
     
@@ -154,21 +155,27 @@ String getMessage(int lightValue)
 
 void Countdown()
 {
+  lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("911 in call in 5");
   delay(1000);
+  lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("911 in call in 4");
   delay(1000);
+  lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("911 in call in 3");
   delay(1000);
+  lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("911 in call in 2");
   delay(1000);
+  lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("911 in call in 1");
   delay(1000);
+  lcd.clear();
   lcd.print("Garda alerted");
 }
 
