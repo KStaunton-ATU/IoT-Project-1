@@ -38,7 +38,8 @@ void setup()
   pinMode(buzzerPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
   Serial.begin(9600);
-  server.listenOnPort(5555);  // Open a port to listen for http requests
+  server.listenOnPort(5555);  
+  server.begin();// Open a port to listen for http requests
 
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
