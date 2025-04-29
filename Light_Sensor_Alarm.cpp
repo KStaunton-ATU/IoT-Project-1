@@ -87,17 +87,17 @@ void loop()
         handleAlarmOffRequest(client);
         client.stop();
     }
+    else 
+    {
+      lcd.setCursor(0,1);
+      lcd.print("Armed");
+    
+      Serial.println("No HTTP request received. Turning off peripherals.");
+      digitalWrite(ledPin, LOW);
+      digitalWrite(buzzerPin, LOW);
+    }
     Countdown();
   } 
-  else 
-  {
-    lcd.setCursor(0,1);
-    lcd.print("Armed");
-    
-    Serial.println("No HTTP request received. Turning off peripherals.");
-    digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);
-  }
 }
 
 void sendPushoverNotification(String message) 
