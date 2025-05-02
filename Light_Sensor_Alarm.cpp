@@ -18,12 +18,13 @@ const int buzzerPin = 3; // Buzzer pin
 const int ledPin = 4; //LED Pin
 const int baseline = 300;
 
+//API and User Keys
 String userKey = "ugh795ezmczcigmwnsdbbnevt3m9gf";
 String apiToken = "abs2yokxv6hvmx9s1e9rr8dzkh2tcb";
 String webhookURL = "https://hook0.com/webhooks/alarm_off?label_key=0";
 String hook0APIKey = "90ad5237-eef3-4f55-9733-26b633e474e7"; 
 
-YunServer server;
+YunServer server; //Later for listening for HTTP request when the alarm triggers
 
 //we want to eventually make a HTTP request to Pushing Box
 HttpClient client; //this object will let us make HTTP requests to the pushingbox service
@@ -74,10 +75,12 @@ void loop()
     client.get(requestURL);
     client.get("api.pushingbox.com/pushingbox?devid=v42FDA5675FD7DA8");
 
+    //Start listening for HTTP calls to shut down the alarm
     unsigned long startTime = millis();//gets milliseconds the Yun has been powered on
     unsigned long timeout = 5000; // Set a timeout of 5 seconds (5000 ms)
     YunClient client;
 
+    //Listening for HTTP request for 5 seconds
     while (!client && (millis() - startTime < timeout)) 
     {
       client = server.accept(); //listening for HTTP request
